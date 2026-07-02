@@ -12,6 +12,9 @@ Cold-starts a fully isolated rootless container in **30.8 ms** (4× faster than 
 **[lightr-cri](https://github.com/HumanGuardrail/lightr-cri)** — stateless, crash-only Kubernetes CRI for lightr.
 critest-conformant. No reconciliation loop: kernel + disk are the source of truth, so `kill -9` mid-operation loses nothing. **~7 MB resident vs containerd's ~66 MB**, no per-container shim.
 
+**[datarail](https://github.com/HumanGuardrail/HuGR_Datarail)** — an end-to-end-sealed data rail; a Kafka-wire-compatible broker whose storage never sees plaintext.
+Every record sealed into a per-record vault (X25519 key-wrap + AEAD, signed); delivery carries an offline-verifiable Merkle receipt; an unmodified Kafka client can produce and read back. Two trust models, never conflated — the README states loudly what a single-node prototype does and doesn't prove.
+
 **CoreLink** *(closed source)* — the platform under all of it.
 Multi-tenant content-addressed cache (REAPI v2) on the Cloudflare edge — Bazel, Cargo, npm, pip, OCI. Per-tenant BYOK, TLA+-modelled tenant isolation (the invariant breaks CI on regression), Ed25519-signed append-only Merkle audit chain. Client: [corelink-cli](https://github.com/humangr-labs/corelink-cli) · [docs](https://corelink-docs.humangr.com) · [pilot](https://signup.corelink.humangr.com/pilot).
 
