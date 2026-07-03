@@ -7,7 +7,7 @@ Founder of **HuGR** (Human Guardrail): a container runtime that makes redundant 
 ## Building
 
 **[lightr](https://github.com/HumanGuardrail/hugr-lightr)** — daemonless, CAS-native container runtime.
-Cold-starts a fully isolated rootless container in **30.8 ms** (4× faster than rootless podman at identical isolation). Memoized runs: a 20k-line C rebuild replays in **10.3 ms vs Docker's 20.6 s (~2,000×)**. Hydrates 1 GB of workspace in **322 ms vs 38.4 s (119×)**. Single ~5 MB binary vs Docker.app's 1.96 GB. Linux namespaces + macOS microVMs (Virtualization.framework). Every number is CI-signed with a reproduction path — [benchmarks](https://github.com/HumanGuardrail/hugr-lightr/blob/main/docs/benchmarks/RESULTS.md).
+Cold-starts a fully isolated rootless container in **30.8 ms** (4× faster than rootless podman at identical isolation). Memoized runs: a 20k-line C rebuild replays in **10.3 ms vs Docker's 20.6 s (~2,000×)**. Hydrates 1 GB of workspace in **322 ms vs 38.4 s (119×)**. Single ~6 MB binary vs Docker.app's 1.96 GB. Linux namespaces + macOS microVMs (Virtualization.framework). Every number is CI-signed with a reproduction path — [benchmarks](https://github.com/HumanGuardrail/hugr-lightr/blob/main/docs/benchmarks/RESULTS.md).
 
 **[lightr-cri](https://github.com/HumanGuardrail/lightr-cri)** — stateless, crash-only Kubernetes CRI for lightr.
 critest-conformant. No reconciliation loop: kernel + disk are the source of truth, so `kill -9` mid-operation loses nothing. **~7 MB resident vs containerd's ~66 MB**, no per-container shim.
