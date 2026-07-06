@@ -1,8 +1,8 @@
 # Gustavo Schneiter
 
-I build AI infrastructure in Rust — the systems layer that makes LLM agents fast, cheap, and verifiable.
+I build the infrastructure beneath AI-driven development — sandboxes, content-addressed storage, and runtimes that let agent-written code run fast, stay contained, and never do the same work twice. Mostly in Rust.
 
-Founder of **HuGR** (Human Guardrail): a content-addressed cache platform, the compute and container runtime that run on it, and a git-native forge for agent fleets — so identical work is never repeated and every artifact is addressed by what it is.
+Founder of **HuGR** (Human Guardrail), my labs building exactly that. Its flagship — **CoreLink**, a multi-tenant content-addressed cache and execution fabric — is live in production, so identical work is never repeated and every artifact is addressed by what it is. The container runtime, the Kubernetes CRI, the sealed data rail, and the git-native forge I build around it are open-source, and still works in progress.
 
 **[Site + writing →](https://humanguardrail.github.io/)**
 
