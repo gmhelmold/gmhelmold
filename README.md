@@ -17,11 +17,18 @@ critest-conformant. No reconciliation loop: kernel + disk are the source of trut
 **[datarail](https://github.com/HumanGuardrail/HuGR_Datarail)** — an end-to-end-sealed data rail; a Kafka-wire-compatible broker whose storage never sees plaintext.
 Every record sealed into a per-record vault (X25519 key-wrap + AEAD, signed); delivery carries an offline-verifiable Merkle receipt; an unmodified Kafka client can produce and read back. An author-commissioned adversarial audit of the real broker measured 3.0 ms cold start and 3.3 MB idle RSS through a 50,000-message zero-loss cycle, with the data directory grepped clean of plaintext. The README states loudly what a single-node prototype does and doesn't prove.
 
+**[anchored-stability](https://github.com/HumanGuardrail/anchored-stability)** — garbage-collecting Byzantine, open-membership CRDTs without a quorum.
+A concept paper with a runnable artifact: every replica *recomputes* the causal-stability certificate from evidence it verifies itself, so Byzantine writers are detected and fenced, not out-voted — no quorum on the stability path. *Checked, not proven* (a bounded model-checker + an independent TLA+/TLC model over 2,299,968 states, not an unbounded proof), scoped to LWW registers. I found three convergence bugs attacking my own claim; each ships a runnable reproduction, and every number regenerates from a clean clone. [DOI](https://doi.org/10.5281/zenodo.21209725).
+
 **CoreLink** *(closed source)* — the content-addressed platform under all of it.
 Multi-tenant cache + action cache (REAPI v2) on Cloudflare — Bazel, Turborepo, sccache/cargo, plus npm, pip, brew and OCI cache surfaces. Per-tenant BYOK across four KMS providers, tenant isolation model-checked in TLA+ (the invariant breaks CI on regression), and an offline-verifiable, Ed25519-signed **hash-chained** audit log a customer verifies without trusting my word for it. Design write-up: [Public packages only need to be downloaded once](https://humanguardrail.github.io/writing/public-mirror.html). Client: [corelink-cli](https://github.com/humangr-labs/corelink-cli) · [docs](https://corelink-docs.humangr.com).
 
 **hugit** *(free product, closed source)* — a git-compatible forge for agent fleets.
 Event-sourced refs make force-push data loss structurally unexpressible (`undo` is a compensating event, not a hack). Memoized CI never re-tests a tree it has already verified. Every commit carries model, instruction, and cost attestation — SLSA-class provenance at the model layer.
+
+## How I build
+
+Everything above is built by orchestrating fleets of coding agents under tight gates — judgment centralized, every result verified rather than trusted. Before an agent is spawned, its definition of done is compiled into an ordered chain of gates and bound to it by a token carried in its own brief. A runtime hook intercepts the moment the agent tries to declare itself done, recovers the token from its own transcript, and re-runs the real checks — compilers, tests — live on the machine. An agent can *say* it finished, but it can never finish on its own word: the spec and its verification are the same object. One orchestrator runs 20+ agents across different models in parallel this way. *(Techlead — open-core.)*
 
 ## How I work
 
